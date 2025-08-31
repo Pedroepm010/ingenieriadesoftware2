@@ -1,0 +1,27 @@
+INSTRUCCIONES PARA CREAR EL FAVICON:
+
+Para crear un favicon de pizza para tu pizzería, puedes:
+
+1. **Usar un generador online**:
+   - Ve a favicon.io
+   - Sube una imagen de pizza
+   - Descarga el favicon.ico generado
+
+2. **Crear uno personalizado**:
+   - Usa herramientas como Canva o Figma
+   - Diseña un ícono simple de pizza (32x32 píxeles)
+   - Exporta como .ico
+
+3. **Usar un emoji como base**:
+   - 🍕 (pizza emoji)
+   - Convierte a favicon usando favicon.io
+
+4. **Descargar uno gratuito**:
+   - Flaticon.com
+   - Icons8.com
+   - Busca "pizza icon" y descarga en formato .ico
+
+El archivo debe llamarse "favicon.ico" y estar en la carpeta assets/images/
+
+Alternativamente, puedes usar este enlace directo a un favicon de pizza:
+https://favicon.io/emoji-favicons/pizza/
