@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="La Pizzería Gourmet - Las mejores pizzas artesanales con ingredientes frescos y recetas tradicionales italianas. Ordena ahora y disfruta del auténtico sabor italiano.">
+    <meta name="keywords" content="pizza, pizzería, gourmet, italiana, delivery, comida, restaurante">
+    <meta name="author" content="La Pizzería Gourmet">
+    <meta property="og:title" content="La Pizzería Gourmet - Pizzas Artesanales">
+    <meta property="og:description" content="Las mejores pizzas artesanales con ingredientes frescos y recetas tradicionales italianas.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tu-usuario.github.io/tu-repositorio">
+    
+    <title>La Pizzería Gourmet - Pizzas Artesanales de Calidad</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-pizza-slice"></i>
+                <span>La Pizzería Gourmet</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#inicio" class="nav-link">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#menu" class="nav-link">Menú</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#nosotros" class="nav-link">Nosotros</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#opiniones" class="nav-link">Opiniones</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contacto" class="nav-link">Contacto</a>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Las Mejores Pizzas Artesanales</h1>
+            <p class="hero-subtitle">Sabor auténtico italiano con ingredientes frescos y recetas tradicionales</p>
+            <button class="btn btn-primary" onclick="scrollToSection('menu')">
+                <i class="fas fa-utensils"></i>
+                Ordenar Ahora
+            </button>
+        </div>
+        <div class="hero-image">
+            <div class="pizza-animation">
+                <i class="fas fa-pizza-slice"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menú de Pizzas -->
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nuestro Menú</h2>
+                <p>Descubre nuestras pizzas artesanales preparadas con amor y tradición</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item" data-aos="fade-up">
+                    <div class="menu-image">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80" alt="Pizza Margherita">
+                        <div class="menu-price">$18.99</div>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Margherita Clásica</h3>
+                        <p>Salsa de tomate, mozzarella fresca, albahaca y aceite de oliva extra virgen</p>
+                        <button class="btn btn-secondary">Ordenar</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="menu-image">
+                        <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=500&q=80" alt="Pizza Pepperoni">
+                        <div class="menu-price">$22.99</div>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Pepperoni Suprema</h3>
+                        <p>Pepperoni picante, mozzarella, salsa de tomate y hierbas italianas</p>
+                        <button class="btn btn-secondary">Ordenar</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="menu-image">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?auto=format&fit=crop&w=500&q=80" alt="Pizza Hawaiana">
+                        <div class="menu-price">$24.99</div>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Hawaiana Especial</h3>
+                        <p>Jamón, piña, mozzarella, salsa de tomate y orégano</p>
+                        <button class="btn btn-secondary">Ordenar</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="menu-image">
+                        <img src="https://images.unsplash.com/photo-1593560708920-61b5e5a2d0d9?auto=format&fit=crop&w=500&q=80" alt="Pizza Vegetariana">
+                        <div class="menu-price">$20.99</div>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Vegetariana Fresca</h3>
+                        <p>Pimientos, cebolla, champiñones, aceitunas y mozzarella</p>
+                        <button class="btn btn-secondary">Ordenar</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="menu-image">
+                        <img src="https://images.unsplash.com/photo-1571066818202-7166d1f65936?auto=format&fit=crop&w=500&q=80" alt="Pizza Cuatro Quesos">
+                        <div class="menu-price">$26.99</div>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Cuatro Quesos</h3>
+                        <p>Mozzarella, gorgonzola, parmesano y ricotta con salsa blanca</p>
+                        <button class="btn btn-secondary">Ordenar</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="500">
+                    <div class="menu-image">
+                        <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=500&q=80" alt="Pizza BBQ">
+                        <div class="menu-price">$25.99</div>
+                    </div>
+                    <div class="menu-content">
+                        <h3>BBQ Chicken</h3>
+                        <p>Pollo a la parrilla, salsa BBQ, cebolla caramelizada y mozzarella</p>
+                        <button class="btn btn-secondary">Ordenar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Nosotros -->
+    <section id="nosotros" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right">
+                    <h2>Nuestra Historia</h2>
+                    <p>Fundada en 1995, La Pizzería Gourmet nació del sueño de traer el auténtico sabor italiano a México. Nuestras recetas han sido transmitidas de generación en generación, manteniendo la tradición y calidad que nos caracteriza.</p>
+                    <p>Utilizamos solo los mejores ingredientes: harina italiana premium, tomates San Marzano, mozzarella de búfala y aceite de oliva extra virgen. Cada pizza es preparada a mano y horneada en hornos de piedra tradicionales.</p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <i class="fas fa-leaf"></i>
+                            <span>Ingredientes Frescos</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-fire"></i>
+                            <span>Hornos de Piedra</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-heart"></i>
+                            <span>Hecho con Amor</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image" data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?auto=format&fit=crop&w=600&q=80" alt="Nuestro equipo preparando pizzas">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Opiniones de Clientes -->
+    <section id="opiniones" class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Lo Que Dicen Nuestros Clientes</h2>
+                <p>La satisfacción de nuestros clientes es nuestra mayor recompensa</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial" data-aos="fade-up">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Las mejores pizzas que he probado en mi vida. La masa es perfecta y los ingredientes son de primera calidad."</p>
+                        <div class="testimonial-author">
+                            <strong>María González</strong>
+                            <span>Cliente Frecuente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Excelente servicio al cliente y pizzas deliciosas. Siempre llegan calientes y a tiempo. ¡Altamente recomendado!"</p>
+                        <div class="testimonial-author">
+                            <strong>Carlos Rodríguez</strong>
+                            <span>Cliente desde 2018</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"La autenticidad italiana se nota en cada bocado. El personal es muy amable y el ambiente es acogedor."</p>
+                        <div class="testimonial-author">
+                            <strong>Ana Martínez</strong>
+                            <span>Crítica Gastronómica</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contáctanos</h2>
+                <p>Estamos aquí para atenderte y resolver cualquier duda</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-right">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Dirección</h4>
+                            <p>Av. Insurgentes Sur 1234<br>Col. Del Valle, CDMX</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Teléfono</h4>
+                            <p>+52 (55) 1234-5678</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@lapizzeriagourmet.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Horarios</h4>
+                            <p>Lun-Dom: 12:00 - 23:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form" data-aos="fade-left">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Tu email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="mensaje" name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-pizza-slice"></i>
+                        <span>La Pizzería Gourmet</span>
+                    </div>
+                    <p>Sabor auténtico italiano desde 1995. Las mejores pizzas artesanales con ingredientes frescos y recetas tradicionales.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#menu">Menú</a></li>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Redes Sociales</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 La Pizzería Gourmet. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/525512345678?text=Hola,%20me%20gustaría%20ordenar%20una%20pizza" class="whatsapp-float" target="_blank" aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
+# 🍕 La Pizzería Gourmet - Página Web Profesional
+
+Una página web moderna y responsive para "La Pizzería Gourmet", diseñada con HTML5, CSS3 y JavaScript vanilla. Perfecta para mostrar pizzas artesanales, menús, testimonios y información de contacto.
+
+## ✨ Características
+
+- **🎨 Diseño Moderno**: Interfaz elegante con paleta de colores cálidos (rojo, dorado, blanco, negro)
+- **📱 Totalmente Responsive**: Adaptado a móviles, tablets y escritorio
+- **🚀 Performance Optimizada**: Sin frameworks pesados, solo CSS y JavaScript vanilla
+- **🎭 Animaciones Suaves**: Efectos de scroll, hover y transiciones fluidas
+- **🔍 SEO Optimizado**: Meta tags, estructura semántica y accesibilidad
+- **📞 Funcionalidades Interactivas**: Formulario de contacto, botón WhatsApp flotante
+- **🎯 Navegación Intuitiva**: Menú hamburguesa para móviles y scroll suave
+
+## 🏗️ Estructura del Proyecto
+
+```
+📁 La Pizzería Gourmet/
+├── 📄 index.html              # Página principal
+├── 📁 assets/
+│   ├── 📁 css/
+│   │   └── 📄 styles.css      # Estilos principales
+│   ├── 📁 js/
+│   │   └── 📄 main.js         # Funcionalidades JavaScript
+│   └── 📁 images/             # Carpeta para imágenes (opcional)
+└── 📄 README.md               # Este archivo
+```
+
+## 🚀 Cómo Publicar en GitHub Pages
+
+### Paso 1: Crear un Repositorio en GitHub
+
+1. Ve a [GitHub.com](https://github.com) y inicia sesión
+2. Haz clic en el botón verde "New" o "Nuevo"
+3. Nombra tu repositorio (ej: `pizzeria-gourmet`)
+4. Marca como "Public" (necesario para GitHub Pages)
+5. Haz clic en "Create repository"
+
+### Paso 2: Subir el Código
+
+#### Opción A: Usando GitHub Desktop (Recomendado para principiantes)
+
+1. Descarga e instala [GitHub Desktop](https://desktop.github.com/)
+2. Clona tu repositorio
+3. Copia todos los archivos del proyecto a la carpeta del repositorio
+4. En GitHub Desktop, verás los cambios
+5. Escribe un mensaje de commit (ej: "Initial commit: Página web de La Pizzería Gourmet")
+6. Haz clic en "Commit to main"
+7. Haz clic en "Push origin"
+
+#### Opción B: Usando Git desde la Terminal
+
+```bash
+# Clonar el repositorio
+git clone https://github.com/TU-USUARIO/TU-REPOSITORIO.git
+
+# Entrar a la carpeta
+cd TU-REPOSITORIO
+
+# Copiar todos los archivos del proyecto aquí
+
+# Agregar todos los archivos
+git add .
+
+# Hacer commit
+git commit -m "Initial commit: Página web de La Pizzería Gourmet"
+
+# Subir a GitHub
+git push origin main
+```
+
+### Paso 3: Activar GitHub Pages
+
+1. Ve a tu repositorio en GitHub
+2. Haz clic en "Settings" (Configuración)
+3. En el menú izquierdo, haz clic en "Pages"
+4. En "Source", selecciona "Deploy from a branch"
+5. En "Branch", selecciona "main" y "/(root)"
+6. Haz clic en "Save"
+7. Espera unos minutos para que se active
+
+### Paso 4: Acceder a tu Sitio Web
+
+Tu sitio estará disponible en:
+```
+https://TU-USUARIO.github.io/TU-REPOSITORIO
+```
+
+## 🎨 Personalización
+
+### Cambiar Colores
+
+Edita `assets/css/styles.css` y modifica las variables de color:
+
+```css
+/* Colores principales */
+.btn-primary {
+    background: linear-gradient(135deg, #TU-COLOR-1, #TU-COLOR-2);
+}
+
+.nav-logo {
+    color: #TU-COLOR-LOGO;
+}
+```
+
+### Cambiar Imágenes
+
+1. Reemplaza las URLs de Unsplash en el HTML con tus propias imágenes
+2. O coloca tus imágenes en `assets/images/` y actualiza las rutas
+
+### Cambiar Información de Contacto
+
+Edita `index.html` y actualiza:
+- Número de WhatsApp
+- Dirección
+- Teléfono
+- Email
+- Horarios
+
+### Cambiar Menú
+
+Modifica la sección del menú en `index.html`:
+- Nombres de pizzas
+- Descripciones
+- Precios
+- Imágenes
+
+## 🔧 Tecnologías Utilizadas
+
+- **HTML5**: Estructura semántica y accesible
+- **CSS3**: Flexbox, Grid, animaciones y media queries
+- **JavaScript ES6+**: Funcionalidades interactivas y efectos
+- **Google Fonts**: Tipografías elegantes (Playfair Display, Poppins)
+- **Font Awesome**: Iconos vectoriales
+- **Unsplash**: Imágenes de alta calidad
+
+## 📱 Características Responsive
+
+- **Mobile First**: Diseño optimizado para móviles
+- **Breakpoints**: 480px, 768px y 1200px
+- **Menú Hamburguesa**: Navegación adaptativa para móviles
+- **Grid Adaptativo**: Layouts que se ajustan automáticamente
+- **Imágenes Responsive**: Se adaptan a diferentes tamaños de pantalla
+
+## 🎭 Animaciones y Efectos
+
+- **Scroll Animations**: Elementos aparecen al hacer scroll
+- **Hover Effects**: Transiciones suaves en botones y tarjetas
+- **Parallax**: Efectos de profundidad sutiles
+- **Typing Effect**: Animación de escritura en el título principal
+- **Particle System**: Partículas flotantes en el hero
+
+## 📊 SEO y Accesibilidad
+
+- **Meta Tags**: Title, description, keywords y Open Graph
+- **Estructura Semántica**: Header, nav, main, section, footer
+- **Alt Text**: Descripciones para imágenes
+- **ARIA Labels**: Etiquetas para lectores de pantalla
+- **Contraste**: Colores con buen contraste para legibilidad
+
+## 🚀 Optimizaciones de Performance
+
+- **CSS Minificado**: Estilos optimizados
+- **JavaScript Modular**: Código organizado y eficiente
+- **Lazy Loading**: Carga diferida de imágenes
+- **Debounce**: Optimización de eventos de scroll
+- **Intersection Observer**: API moderna para animaciones
+
+## 🐛 Solución de Problemas
+
+### El sitio no se muestra
+- Verifica que el repositorio sea público
+- Espera 5-10 minutos después de activar GitHub Pages
+- Revisa que el archivo se llame exactamente `index.html`
+
+### Las imágenes no cargan
+- Verifica que las URLs de Unsplash sean correctas
+- Asegúrate de que las rutas a imágenes locales sean correctas
+
+### El menú móvil no funciona
+- Verifica que el archivo `main.js` esté correctamente enlazado
+- Revisa la consola del navegador para errores JavaScript
+
+### Los estilos no se aplican
+- Verifica que la ruta a `styles.css` sea correcta
+- Asegúrate de que el archivo CSS esté en `assets/css/`
+
+## 📞 Soporte
+
+Si tienes problemas o preguntas:
+
+1. Revisa la consola del navegador (F12) para errores
+2. Verifica que todos los archivos estén en las carpetas correctas
+3. Asegúrate de que GitHub Pages esté activado
+4. Revisa que el repositorio sea público
+
+## 📄 Licencia
+
+Este proyecto es de código abierto y está disponible bajo la licencia MIT.
+
+## 🙏 Agradecimientos
+
+- **Unsplash** por las imágenes de alta calidad
+- **Google Fonts** por las tipografías elegantes
+- **Font Awesome** por los iconos vectoriales
+- **GitHub** por proporcionar GitHub Pages gratuitamente
+
+---
+
+**¡Disfruta creando tu página web de pizzería! 🍕✨**
