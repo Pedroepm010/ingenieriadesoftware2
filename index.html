@@ -1,171 +1,454 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Práctica 5 Bootstrap</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Científica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- Bootstrap 5.3.x -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- (Opcional) Google Fonts: agrega la familia si la vas a usar -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #E6F3FF;
-    }
-    .navbar-brand {
-      color: #000 !important;
-      font-weight: bold;
-    }
-    .nav-link {
-      color: #000 !important;
-    }
-    .nav-link:hover {
-      color: #333 !important;
-    }
-  </style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calculator {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .display {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: right;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .previous-operand {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-bottom: 5px;
+            min-height: 20px;
+        }
+
+        .current-operand {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn.operator {
+            background: rgba(255, 165, 0, 0.8);
+        }
+
+        .btn.operator:hover {
+            background: rgba(255, 165, 0, 1);
+        }
+
+        .btn.function {
+            background: rgba(138, 43, 226, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .btn.function:hover {
+            background: rgba(138, 43, 226, 1);
+        }
+
+        .btn.clear {
+            background: rgba(220, 20, 60, 0.8);
+        }
+
+        .btn.clear:hover {
+            background: rgba(220, 20, 60, 1);
+        }
+
+        .btn.equals {
+            background: rgba(34, 139, 34, 0.8);
+            grid-column: span 2;
+        }
+
+        .btn.equals:hover {
+            background: rgba(34, 139, 34, 1);
+        }
+
+        .btn.zero {
+            grid-column: span 2;
+        }
+
+        .title {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 480px) {
+            .calculator {
+                padding: 20px;
+            }
+            
+            .btn {
+                padding: 12px;
+                font-size: 1rem;
+            }
+            
+            .current-operand {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg" style="background-color: #87CEEB;" data-aos="fade-down">
->
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">PEPM</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-              aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Nosotros</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Servicios
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Acción</a></li>
-              <li><a class="dropdown-item" href="#">Otra acción</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Algo más aquí</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <span class="nav-link disabled" aria-disabled="true">Deshabilitado</span>
-          </li>
-        </ul>
-
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-          <button class="btn btn-outline-light" type="submit">Buscar</button>
-        </form>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Carrusel -->
-  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel"  data-aos="fade-down">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-              aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?q=80&w=1470&auto=format&fit=crop"
-             class="d-block w-100" alt="Setup gamer con teclado mecánico">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Setup Gamer</h5>
-          <p>El mejor equipamiento para tus sesiones de gaming.</p>
+    <div class="calculator">
+        <h1 class="title">Calculadora Científica</h1>
+        <h2 class="subtitle">Pedro Pacheco 80703</h2>
+        <div class="display">
+            <div class="previous-operand" id="previousOperand"></div>
+            <div class="current-operand" id="currentOperand">0</div>
         </div>
-      </div>
-
-      <div class="carousel-item">
-        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1470&auto=format&fit=crop"
-             class="d-block w-100" alt="Gaming setup con múltiples monitores">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Multi-Monitor Gaming</h5>
-          <p>Experiencia inmersiva con múltiples pantallas.</p>
-        </div>
-      </div>
-
-      <div class="carousel-item">
-        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1471&auto=format&fit=crop"
-             class="d-block w-100" alt="Gaming RGB setup">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>RGB Gaming</h5>
-          <p>Iluminación RGB para la mejor experiencia gaming.</p>
-        </div>
-      </div>
-    </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev" aria-label="Anterior">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Anterior</span>
-    </button>
-
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next" aria-label="Siguiente">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Siguiente</span>
-    </button>
-  </div>
-
-  <footer class="bg-dark text-white pt-4 pb-2"  data-aos="fade-down">
-    <div class="container">
-        <div class="row">
-            <!-- Dirección -->
-            <div class="col-md-4 mb-3">
-                <h5>Dirección</h5>
-                <ul class="list-unstyled">
-                    <li>123 Calle Principal</li>
-                    <li>Ciudad Ejemplo, CP 12345</li>
-                    <li>País de Prueba</li>
-                </ul>
-            </div>
-            <!-- Teléfonos -->
-            <div class="col-md-4 mb-3">
-                <h5>Teléfonos</h5>
-                <ul class="list-unstyled">
-                    <li>+52 123 456 7890</li>
-                    <li>+52 987 654 3210</li>
-                </ul>
-            </div>
-            <!-- Redes Sociales -->
-            <div class="col-md-4 mb-3">
-                <h5>Redes Sociales</h5>
-                <a href="https://www.facebook.com/" target="_blank" class="text-white me-3" aria-label="Facebook">
-                    <i class="bi bi-facebook" style="font-size: 2rem;"></i>
-                </a>
-                <a href="https://www.twitter.com/" target="_blank" class="text-white me-3" aria-label="X">
-                    <i class="bi bi-twitter-x" style="font-size: 2rem;"></i>
-                </a>
-                <a href="https://www.instagram.com/" target="_blank" class="text-white" aria-label="Instagram">
-                    <i class="bi bi-instagram" style="font-size: 2rem;"></i>
-                </a>
-            </div>
-        </div>
-        <div class="text-center mt-3">
-            <small>&copy; 2024 Agencia. Todos los derechos reservados.</small>
+        <div class="buttons">
+            <!-- Primera fila -->
+            <button class="btn function" onclick="clearAll()">C</button>
+            <button class="btn function" onclick="clearEntry()">CE</button>
+            <button class="btn function" onclick="deleteLast()">⌫</button>
+            <button class="btn function" onclick="inputOperator('/')">÷</button>
+            <button class="btn function" onclick="inputOperator('*')">×</button>
+            
+            <!-- Segunda fila -->
+            <button class="btn function" onclick="inputFunction('sin')">sin</button>
+            <button class="btn function" onclick="inputFunction('cos')">cos</button>
+            <button class="btn function" onclick="inputFunction('tan')">tan</button>
+            <button class="btn function" onclick="inputOperator('^')">x^y</button>
+            <button class="btn function" onclick="inputFunction('sqrt')">√</button>
+            
+            <!-- Tercera fila -->
+            <button class="btn function" onclick="inputFunction('log')">log</button>
+            <button class="btn function" onclick="inputFunction('ln')">ln</button>
+            <button class="btn function" onclick="inputFunction('exp')">e^x</button>
+            <button class="btn function" onclick="inputFunction('factorial')">x!</button>
+            <button class="btn function" onclick="inputOperator('%')">%</button>
+            
+            <!-- Cuarta fila -->
+            <button class="btn" onclick="inputNumber('7')">7</button>
+            <button class="btn" onclick="inputNumber('8')">8</button>
+            <button class="btn" onclick="inputNumber('9')">9</button>
+            <button class="btn operator" onclick="inputOperator('-')">-</button>
+            <button class="btn function" onclick="inputConstant('pi')">π</button>
+            
+            <!-- Quinta fila -->
+            <button class="btn" onclick="inputNumber('4')">4</button>
+            <button class="btn" onclick="inputNumber('5')">5</button>
+            <button class="btn" onclick="inputNumber('6')">6</button>
+            <button class="btn operator" onclick="inputOperator('+')">+</button>
+            <button class="btn function" onclick="inputConstant('e')">e</button>
+            
+            <!-- Sexta fila -->
+            <button class="btn" onclick="inputNumber('1')">1</button>
+            <button class="btn" onclick="inputNumber('2')">2</button>
+            <button class="btn" onclick="inputNumber('3')">3</button>
+            <button class="btn function" onclick="inputFunction('pow10')">10^x</button>
+            <button class="btn function" onclick="inputFunction('abs')">|x|</button>
+            
+            <!-- Séptima fila -->
+            <button class="btn" onclick="inputNumber('0')">0</button>
+            <button class="btn" onclick="inputNumber('.')">.</button>
+            <button class="btn function" onclick="inputFunction('1/x')">1/x</button>
+            <button class="btn function" onclick="inputFunction('negate')">±</button>
+            <button class="btn equals" onclick="calculate()">=</button>
         </div>
     </div>
-</footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-  AOS.init();
-</script>
+        class Calculator {
+            constructor() {
+                this.previousOperand = '';
+                this.currentOperand = '0';
+                this.operation = undefined;
+                this.waitingForOperand = false;
+            }
 
+            clear() {
+                this.currentOperand = '0';
+                this.previousOperand = '';
+                this.operation = undefined;
+                this.waitingForOperand = false;
+            }
+
+            clearEntry() {
+                this.currentOperand = '0';
+            }
+
+            delete() {
+                if (this.currentOperand.length > 1) {
+                    this.currentOperand = this.currentOperand.slice(0, -1);
+                } else {
+                    this.currentOperand = '0';
+                }
+            }
+
+            appendNumber(number) {
+                if (this.waitingForOperand) {
+                    this.currentOperand = number;
+                    this.waitingForOperand = false;
+                } else {
+                    this.currentOperand = this.currentOperand === '0' ? number : this.currentOperand + number;
+                }
+            }
+
+            chooseOperation(operation) {
+                if (this.currentOperand === '') return;
+                if (this.previousOperand !== '') {
+                    this.calculate();
+                }
+                this.operation = operation;
+                this.previousOperand = this.currentOperand;
+                this.currentOperand = '';
+            }
+
+            calculate() {
+                let computation;
+                const prev = parseFloat(this.previousOperand);
+                const current = parseFloat(this.currentOperand);
+
+                if (isNaN(prev) || isNaN(current)) return;
+
+                switch (this.operation) {
+                    case '+':
+                        computation = prev + current;
+                        break;
+                    case '-':
+                        computation = prev - current;
+                        break;
+                    case '*':
+                        computation = prev * current;
+                        break;
+                    case '/':
+                        computation = prev / current;
+                        break;
+                    case '^':
+                        computation = Math.pow(prev, current);
+                        break;
+                    case '%':
+                        computation = prev % current;
+                        break;
+                    default:
+                        return;
+                }
+
+                this.currentOperand = computation.toString();
+                this.operation = undefined;
+                this.previousOperand = '';
+                this.waitingForOperand = true;
+            }
+
+            performFunction(func) {
+                const current = parseFloat(this.currentOperand);
+                if (isNaN(current)) return;
+
+                let result;
+                switch (func) {
+                    case 'sin':
+                        result = Math.sin(current * Math.PI / 180);
+                        break;
+                    case 'cos':
+                        result = Math.cos(current * Math.PI / 180);
+                        break;
+                    case 'tan':
+                        result = Math.tan(current * Math.PI / 180);
+                        break;
+                    case 'sqrt':
+                        result = Math.sqrt(current);
+                        break;
+                    case 'log':
+                        result = Math.log10(current);
+                        break;
+                    case 'ln':
+                        result = Math.log(current);
+                        break;
+                    case 'exp':
+                        result = Math.exp(current);
+                        break;
+                    case 'factorial':
+                        result = this.factorial(current);
+                        break;
+                    case 'pow10':
+                        result = Math.pow(10, current);
+                        break;
+                    case 'abs':
+                        result = Math.abs(current);
+                        break;
+                    case '1/x':
+                        result = 1 / current;
+                        break;
+                    case 'negate':
+                        result = -current;
+                        break;
+                    default:
+                        return;
+                }
+
+                this.currentOperand = result.toString();
+                this.waitingForOperand = true;
+            }
+
+            factorial(n) {
+                if (n < 0) return NaN;
+                if (n === 0 || n === 1) return 1;
+                let result = 1;
+                for (let i = 2; i <= n; i++) {
+                    result *= i;
+                }
+                return result;
+            }
+
+            addConstant(constant) {
+                switch (constant) {
+                    case 'pi':
+                        this.currentOperand = Math.PI.toString();
+                        break;
+                    case 'e':
+                        this.currentOperand = Math.E.toString();
+                        break;
+                }
+                this.waitingForOperand = true;
+            }
+
+            updateDisplay() {
+                const currentOperandElement = document.getElementById('currentOperand');
+                const previousOperandElement = document.getElementById('previousOperand');
+
+                currentOperandElement.textContent = this.currentOperand;
+
+                if (this.operation != null) {
+                    previousOperandElement.textContent = `${this.previousOperand} ${this.operation}`;
+                } else {
+                    previousOperandElement.textContent = '';
+                }
+            }
+        }
+
+        const calculator = new Calculator();
+
+        function inputNumber(number) {
+            calculator.appendNumber(number);
+            calculator.updateDisplay();
+        }
+
+        function inputOperator(operator) {
+            calculator.chooseOperation(operator);
+            calculator.updateDisplay();
+        }
+
+        function inputFunction(func) {
+            calculator.performFunction(func);
+            calculator.updateDisplay();
+        }
+
+        function inputConstant(constant) {
+            calculator.addConstant(constant);
+            calculator.updateDisplay();
+        }
+
+        function calculate() {
+            calculator.calculate();
+            calculator.updateDisplay();
+        }
+
+        function clearAll() {
+            calculator.clear();
+            calculator.updateDisplay();
+        }
+
+        function clearEntry() {
+            calculator.clearEntry();
+            calculator.updateDisplay();
+        }
+
+        function deleteLast() {
+            calculator.delete();
+            calculator.updateDisplay();
+        }
+
+        // Soporte para teclado
+        document.addEventListener('keydown', function(event) {
+            const key = event.key;
+            
+            if (key >= '0' && key <= '9' || key === '.') {
+                inputNumber(key);
+            } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+                inputOperator(key);
+            } else if (key === 'Enter' || key === '=') {
+                calculate();
+            } else if (key === 'Escape' || key === 'c' || key === 'C') {
+                clearAll();
+            } else if (key === 'Backspace') {
+                deleteLast();
+            }
+        });
+    </script>
 </body>
 </html>
