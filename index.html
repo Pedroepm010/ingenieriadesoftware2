@@ -1,454 +1,341 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Científica</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PACHECO 9 · Mini-Espadas Brasileñas</title>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        .calculator {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            max-width: 400px;
-            width: 100%;
-        }
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 
-        .display {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: right;
-            min-height: 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+  <style>
+    :root{
+      --br-green:#00923F;
+      --br-yellow:#F7C300;
+      --br-blue:#002776;
+      --br-dark:#0B3B25;
+      --br-light:#F5FFE9;
+      --card-radius:22px;
+      --shadow-1:0 10px 26px rgba(0,0,0,.08);
+      --shadow-2:0 16px 40px rgba(0,0,0,.14);
+    }
+    body{font-family: Nunito, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color:#1c1c1c;}
+    .brand{font-family: Montserrat, sans-serif;}
+    .flag-icon{width:18px;height:12px;display:inline-block;border-radius:2px;background:
+      linear-gradient(90deg, var(--br-green) 0 33%, var(--br-yellow) 33% 66%, var(--br-blue) 66% 100%);}
 
-        .previous-operand {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-            margin-bottom: 5px;
-            min-height: 20px;
-        }
+    /* Navbar */
+    .navbar-brand img{height:36px;width:auto}
+    .navbar{backdrop-filter:saturate(1.1) blur(6px);}
 
-        .current-operand {
-            color: white;
-            font-size: 2rem;
-            font-weight: bold;
-            word-wrap: break-word;
-            word-break: break-all;
-        }
+    /* Hero */
+    .hero{
+      position:relative;color:#fff;overflow:hidden;
+      background:
+        radial-gradient(1200px 500px at 100% 0, rgba(247,195,0,.20), transparent 60%),
+        radial-gradient(1200px 500px at 0 100%, rgba(0,146,63,.22), transparent 60%),
+        linear-gradient(135deg, #0C6A3B 0%, #0FAE54 100%);
+    }
+    .hero-card{
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow-1);
+      backdrop-filter: blur(6px);
+    }
+    .hero-img{
+      width:100%;max-height:420px;object-fit:cover;border-radius:var(--card-radius);
+      box-shadow:var(--shadow-2);background: center/cover no-repeat url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width=\'1200\' height=\'800\'><defs><linearGradient id=\'g\' x1=\'0\' y1=\'0\' x2=\'1\' y2=\'1\'><stop offset=\'0%\' stop-color=\'%2300923F\'/><stop offset=\'100%\' stop-color=\'%230FAE54\'/></linearGradient></defs><rect width=\'1200\' height=\'800\' fill=\'url(%23g)\'/><circle cx=\'200\' cy=\'200\' r=\'18\' fill=\'%23F7C300\'/><circle cx=\'250\' cy=\'260\' r=\'10\' fill=\'%23F7C300\'/><circle cx=\'320\' cy=\'220\' r=\'14\' fill=\'%23F7C300\'/></svg>');
+    }
+    .badge-br{background:var(--br-yellow);color:#1c1c1c;font-weight:800}
 
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-        }
+    /* Sections */
+    .section-title{font-family: Montserrat, sans-serif; font-weight:800; letter-spacing:.3px}
+    .accent{color:var(--br-yellow)}
+    .bg-lightbr{background:var(--br-light)}
 
-        .btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: bold;
-            padding: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+    /* Cards Menú */
+    .menu-card{border:0;border-radius:var(--card-radius);overflow:hidden;background:#fff;box-shadow:var(--shadow-1);transition:.25s transform,.25s box-shadow}
+    .menu-card:hover{transform: translateY(-4px); box-shadow: var(--shadow-2)}
+    .menu-card .cover{height:210px;width:100%;object-fit:cover;background:
+      repeating-linear-gradient(45deg, rgba(0,0,0,.06) 0 10px, rgba(0,0,0,.08) 10px 20px);}
+    .price{background:var(--br-yellow); color:#111; font-weight:800; padding:.25rem .6rem; border-radius:999px; font-size:.95rem}
 
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
+    /* Pills */
+    .pill{border:1px solid rgba(0,0,0,.12);border-radius:999px;padding:.35rem .9rem;cursor:pointer;user-select:none;font-weight:700}
+    .pill.active{background:var(--br-green);color:#fff;border-color:transparent}
 
-        .btn:active {
-            transform: translateY(0);
-        }
+    /* Gallery */
+    .gal-img{width:100%;height:220px;object-fit:cover;border-radius:18px;box-shadow:var(--shadow-1)}
 
-        .btn.operator {
-            background: rgba(255, 165, 0, 0.8);
-        }
+    /* Eventos */
+    .event-card{border:0;border-radius:var(--card-radius);background:linear-gradient(135deg,#fff 0,#fdf9e4 100%);box-shadow:var(--shadow-1)}
 
-        .btn.operator:hover {
-            background: rgba(255, 165, 0, 1);
-        }
-
-        .btn.function {
-            background: rgba(138, 43, 226, 0.8);
-            font-size: 0.9rem;
-        }
-
-        .btn.function:hover {
-            background: rgba(138, 43, 226, 1);
-        }
-
-        .btn.clear {
-            background: rgba(220, 20, 60, 0.8);
-        }
-
-        .btn.clear:hover {
-            background: rgba(220, 20, 60, 1);
-        }
-
-        .btn.equals {
-            background: rgba(34, 139, 34, 0.8);
-            grid-column: span 2;
-        }
-
-        .btn.equals:hover {
-            background: rgba(34, 139, 34, 1);
-        }
-
-        .btn.zero {
-            grid-column: span 2;
-        }
-
-        .title {
-            text-align: center;
-            color: white;
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .subtitle {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 20px;
-            font-size: 1rem;
-            font-weight: 500;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-            letter-spacing: 1px;
-        }
-
-        @media (max-width: 480px) {
-            .calculator {
-                padding: 20px;
-            }
-            
-            .btn {
-                padding: 12px;
-                font-size: 1rem;
-            }
-            
-            .current-operand {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
+    /* Footer */
+    footer{background:var(--br-dark);color:#c8f1dd}
+    a.link-lightbr{color:#c8f1dd;text-decoration:none}
+    a.link-lightbr:hover{color:#fff;text-decoration:underline}
+  </style>
 </head>
 <body>
-    <div class="calculator">
-        <h1 class="title">Calculadora Científica</h1>
-        <h2 class="subtitle">Pedro Pacheco 80703</h2>
-        <div class="display">
-            <div class="previous-operand" id="previousOperand"></div>
-            <div class="current-operand" id="currentOperand">0</div>
-        </div>
-        <div class="buttons">
-            <!-- Primera fila -->
-            <button class="btn function" onclick="clearAll()">C</button>
-            <button class="btn function" onclick="clearEntry()">CE</button>
-            <button class="btn function" onclick="deleteLast()">⌫</button>
-            <button class="btn function" onclick="inputOperator('/')">÷</button>
-            <button class="btn function" onclick="inputOperator('*')">×</button>
-            
-            <!-- Segunda fila -->
-            <button class="btn function" onclick="inputFunction('sin')">sin</button>
-            <button class="btn function" onclick="inputFunction('cos')">cos</button>
-            <button class="btn function" onclick="inputFunction('tan')">tan</button>
-            <button class="btn function" onclick="inputOperator('^')">x^y</button>
-            <button class="btn function" onclick="inputFunction('sqrt')">√</button>
-            
-            <!-- Tercera fila -->
-            <button class="btn function" onclick="inputFunction('log')">log</button>
-            <button class="btn function" onclick="inputFunction('ln')">ln</button>
-            <button class="btn function" onclick="inputFunction('exp')">e^x</button>
-            <button class="btn function" onclick="inputFunction('factorial')">x!</button>
-            <button class="btn function" onclick="inputOperator('%')">%</button>
-            
-            <!-- Cuarta fila -->
-            <button class="btn" onclick="inputNumber('7')">7</button>
-            <button class="btn" onclick="inputNumber('8')">8</button>
-            <button class="btn" onclick="inputNumber('9')">9</button>
-            <button class="btn operator" onclick="inputOperator('-')">-</button>
-            <button class="btn function" onclick="inputConstant('pi')">π</button>
-            
-            <!-- Quinta fila -->
-            <button class="btn" onclick="inputNumber('4')">4</button>
-            <button class="btn" onclick="inputNumber('5')">5</button>
-            <button class="btn" onclick="inputNumber('6')">6</button>
-            <button class="btn operator" onclick="inputOperator('+')">+</button>
-            <button class="btn function" onclick="inputConstant('e')">e</button>
-            
-            <!-- Sexta fila -->
-            <button class="btn" onclick="inputNumber('1')">1</button>
-            <button class="btn" onclick="inputNumber('2')">2</button>
-            <button class="btn" onclick="inputNumber('3')">3</button>
-            <button class="btn function" onclick="inputFunction('pow10')">10^x</button>
-            <button class="btn function" onclick="inputFunction('abs')">|x|</button>
-            
-            <!-- Séptima fila -->
-            <button class="btn" onclick="inputNumber('0')">0</button>
-            <button class="btn" onclick="inputNumber('.')">.</button>
-            <button class="btn function" onclick="inputFunction('1/x')">1/x</button>
-            <button class="btn function" onclick="inputFunction('negate')">±</button>
-            <button class="btn equals" onclick="calculate()">=</button>
-        </div>
+
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg bg-white sticky-top border-bottom">
+    <div class="container">
+      <a class="navbar-brand brand fw-bold d-flex align-items-center gap-2" href="#">
+        <span class="flag-icon"></span>
+        <img src="assets/logo-pacheco9.png" alt="Logo PACHECO 9" onerror="this.style.display='none'">
+        <span class="d-none d-sm-inline">PACHECO <span class="text-warning">9</span></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="navMain" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#menu">Menú</a></li>
+          <li class="nav-item"><a class="nav-link" href="#galeria">Galería</a></li>
+          <li class="nav-item"><a class="nav-link" href="#eventos">Eventos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
+        </ul>
+      </div>
     </div>
+  </nav>
 
-    <script>
-        class Calculator {
-            constructor() {
-                this.previousOperand = '';
-                this.currentOperand = '0';
-                this.operation = undefined;
-                this.waitingForOperand = false;
-            }
+  <!-- HERO -->
+  <header class="hero py-5">
+    <div class="container py-3">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6">
+          <div class="hero-card p-4 p-lg-5">
+            <span class="badge badge-br rounded-pill mb-3">Auténticas Mini-Espadas</span>
+            <h1 class="display-5 section-title mb-3">Sabor de <span class="accent">Brasil</span> en cada brocheta</h1>
+            <p class="lead mb-4">
+              Picaña, sirloin, chorizo, pollo y corazón de pollo asados al carbón. 
+              Acompáñalos con pan de ajo y bebidas brasileñas como maracuyá y guaraná.
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="#menu" class="btn btn-warning fw-bold px-4">Ver menú</a>
+              <a href="#eventos" class="btn btn-outline-light fw-bold px-4">Eventos y Banquetes</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <!-- Imagen local con fallback -->
+          <img src="assets/hero-espadas.jpg" alt="Churrasco brasileño en mini-espadas" class="hero-img" loading="eager"
+               onerror="this.onerror=null; this.src='assets/galeria-1.jpg';">
+        </div>
+      </div>
+    </div>
+  </header>
 
-            clear() {
-                this.currentOperand = '0';
-                this.previousOperand = '';
-                this.operation = undefined;
-                this.waitingForOperand = false;
-            }
+  <!-- MENÚ -->
+  <section id="menu" class="py-5 bg-lightbr">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h2 class="section-title">Menú</h2>
+        <p class="text-muted mb-1">Elige tus <strong>mini-espadas</strong>, añade <strong>acompañamientos</strong> y refresca con <strong>bebidas</strong>.</p>
+        <div class="mt-3 d-flex justify-content-center gap-2 flex-wrap">
+          <span class="pill active" data-filter="all">Todo</span>
+          <span class="pill" data-filter="espadas">Mini-Espadas</span>
+          <span class="pill" data-filter="acomps">Acompañamientos</span>
+          <span class="pill" data-filter="bebidas">Bebidas</span>
+        </div>
+      </div>
 
-            clearEntry() {
-                this.currentOperand = '0';
-            }
+      <div class="row g-4" id="menuGrid">
+        <!-- ESPADAS -->
+        <div class="col-sm-6 col-lg-4 item espadas">
+          <div class="card menu-card h-100">
+            <img class="cover" src="assets/picanha.jpg" alt="Picaña a la espada" loading="lazy"
+                 onerror="this.src='assets/hero-espadas.jpg'">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start"><h5 class="card-title brand">Picaña</h5><span class="price">$65</span></div>
+              <p class="card-text">Corte premium brasileño con capa de grasa dorada, servido en mini-espada.</p>
+            </div>
+          </div>
+        </div>
 
-            delete() {
-                if (this.currentOperand.length > 1) {
-                    this.currentOperand = this.currentOperand.slice(0, -1);
-                } else {
-                    this.currentOperand = '0';
-                }
-            }
+        <div class="col-sm-6 col-lg-4 item espadas">
+          <div class="card menu-card h-100">
+            <img class="cover" src="assets/sirloin.jpg" alt="Sirloin a la espada" loading="lazy"
+                 onerror="this.src='assets/hero-espadas.jpg'">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start"><h5 class="card-title brand">Sirloin</h5><span class="price">$60</span></div>
+              <p class="card-text">Tierno y jugoso, sazonado al estilo churrasco. Ideal al término medio.</p>
+            </div>
+          </div>
+        </div>
 
-            appendNumber(number) {
-                if (this.waitingForOperand) {
-                    this.currentOperand = number;
-                    this.waitingForOperand = false;
-                } else {
-                    this.currentOperand = this.currentOperand === '0' ? number : this.currentOperand + number;
-                }
-            }
+        <div class="col-sm-6 col-lg-4 item espadas">
+          <div class="card menu-card h-100">
+            <img class="cover" src="assets/chorizo.jpg" alt="Chorizo brasileño" loading="lazy"
+                 onerror="this.src='assets/hero-espadas.jpg'">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start"><h5 class="card-title brand">Chorizo</h5><span class="price">$45</span></div>
+              <p class="card-text">Artesanal, con notas ahumadas y dorado perfecto en la parrilla.</p>
+            </div>
+          </div>
+        </div>
 
-            chooseOperation(operation) {
-                if (this.currentOperand === '') return;
-                if (this.previousOperand !== '') {
-                    this.calculate();
-                }
-                this.operation = operation;
-                this.previousOperand = this.currentOperand;
-                this.currentOperand = '';
-            }
+        <div class="col-sm-6 col-lg-4 item espadas">
+          <div class="card menu-card h-100">
+            <img class="cover" src="assets/pollo.jpg" alt="Pollo a la espada" loading="lazy"
+                 onerror="this.src='assets/hero-espadas.jpg'">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start"><h5 class="card-title brand">Pollo</h5><span class="price">$40</span></div>
+              <p class="card-text">Pechuga marinada con hierbas, asada al punto y súper jugosa.</p>
+            </div>
+          </div>
+        </div>
 
-            calculate() {
-                let computation;
-                const prev = parseFloat(this.previousOperand);
-                const current = parseFloat(this.currentOperand);
+        <div class="col-sm-6 col-lg-4 item espadas">
+          <div class="card menu-card h-100">
+            <img class="cover" src="assets/corazon.jpg" alt="Corazón de pollo" loading="lazy"
+                 onerror="this.src='assets/hero-espadas.jpg'">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start"><h5 class="card-title brand">Corazón de Pollo</h5><span class="price">$42</span></div>
+              <p class="card-text">Clásico de rodizio: textura tierna y sabor intenso en mini-espada.</p>
+            </div>
+          </div>
+        </div>
 
-                if (isNaN(prev) || isNaN(current)) return;
+        <!-- ACOMPAÑAMIENTO -->
+        <div class="col-sm-6 col-lg-4 item acomps">
+          <div class="card menu-card h-100">
+            <img class="cover" src="assets/pan-ajo.jpg" alt="Pan de ajo" loading="lazy"
+                 onerror="this.src='assets/hero-espadas.jpg'">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start"><h5 class="card-title brand">Pan de Ajo</h5><span class="price">$25</span></div>
+              <p class="card-text">Crujiente por fuera, suave por dentro, con mantequilla de ajo y perejil.</p>
+            </div>
+          </div>
+        </div>
 
-                switch (this.operation) {
-                    case '+':
-                        computation = prev + current;
-                        break;
-                    case '-':
-                        computation = prev - current;
-                        break;
-                    case '*':
-                        computation = prev * current;
-                        break;
-                    case '/':
-                        computation = prev / current;
-                        break;
-                    case '^':
-                        computation = Math.pow(prev, current);
-                        break;
-                    case '%':
-                        computation = prev % current;
-                        break;
-                    default:
-                        return;
-                }
+        <!-- BEBIDAS -->
+        <div class="col-sm-6 col-lg-4 item bebidas">
+          <div class="card menu-card h-100">
+            <img class="cover" src="assets/maracuya.jpg" alt="Agua de maracuyá" loading="lazy"
+                 onerror="this.src='assets/hero-espadas.jpg'">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start"><h5 class="card-title brand">Agua de Maracuyá</h5><span class="price">$28</span></div>
+              <p class="card-text">Refrescante y aromática, con la acidez perfecta del fruto de la pasión.</p>
+            </div>
+          </div>
+        </div>
 
-                this.currentOperand = computation.toString();
-                this.operation = undefined;
-                this.previousOperand = '';
-                this.waitingForOperand = true;
-            }
+        <div class="col-sm-6 col-lg-4 item bebidas">
+          <div class="card menu-card h-100">
+            <img class="cover" src="assets/guarana.jpg" alt="Refresco Guaraná" loading="lazy"
+                 onerror="this.src='assets/hero-espadas.jpg'">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start"><h5 class="card-title brand">Guaraná</h5><span class="price">$30</span></div>
+              <p class="card-text">Clásico brasileño con notas frutales. Bien frío sabe mejor.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            performFunction(func) {
-                const current = parseFloat(this.currentOperand);
-                if (isNaN(current)) return;
+      <p class="text-center mt-4 small text-muted">*Precios de muestra. Ajusta según tu lista oficial.</p>
+    </div>
+  </section>
 
-                let result;
-                switch (func) {
-                    case 'sin':
-                        result = Math.sin(current * Math.PI / 180);
-                        break;
-                    case 'cos':
-                        result = Math.cos(current * Math.PI / 180);
-                        break;
-                    case 'tan':
-                        result = Math.tan(current * Math.PI / 180);
-                        break;
-                    case 'sqrt':
-                        result = Math.sqrt(current);
-                        break;
-                    case 'log':
-                        result = Math.log10(current);
-                        break;
-                    case 'ln':
-                        result = Math.log(current);
-                        break;
-                    case 'exp':
-                        result = Math.exp(current);
-                        break;
-                    case 'factorial':
-                        result = this.factorial(current);
-                        break;
-                    case 'pow10':
-                        result = Math.pow(10, current);
-                        break;
-                    case 'abs':
-                        result = Math.abs(current);
-                        break;
-                    case '1/x':
-                        result = 1 / current;
-                        break;
-                    case 'negate':
-                        result = -current;
-                        break;
-                    default:
-                        return;
-                }
+  <!-- GALERÍA -->
+  <section id="galeria" class="py-5">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h2 class="section-title">Galería</h2>
+        <p class="text-muted">Un vistazo a nuestras espadas y al carbón 🔥</p>
+      </div>
+      <div class="row g-3">
+        <div class="col-6 col-lg-3"><img class="gal-img" src="assets/galeria-1.jpg" alt="Churrasco 1" loading="lazy" onerror="this.src='assets/hero-espadas.jpg'"></div>
+        <div class="col-6 col-lg-3"><img class="gal-img" src="assets/galeria-2.jpg" alt="Churrasco 2" loading="lazy" onerror="this.src='assets/hero-espadas.jpg'"></div>
+        <div class="col-6 col-lg-3"><img class="gal-img" src="assets/galeria-3.jpg" alt="Churrasco 3" loading="lazy" onerror="this.src='assets/hero-espadas.jpg'"></div>
+        <div class="col-6 col-lg-3"><img class="gal-img" src="assets/galeria-4.jpg" alt="Churrasco 4" loading="lazy" onerror="this.src='assets/hero-espadas.jpg'"></div>
+      </div>
+    </div>
+  </section>
 
-                this.currentOperand = result.toString();
-                this.waitingForOperand = true;
-            }
+  <!-- EVENTOS -->
+  <section id="eventos" class="py-5 bg-lightbr">
+    <div class="container">
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-6">
+          <div class="p-4 p-lg-5 event-card h-100">
+            <h2 class="section-title mb-3">Eventos y Banquetes</h2>
+            <p class="mb-3">
+              Llevamos el sabor de Brasil a tu evento: cumpleaños, empresariales, bodas y reuniones.
+              Montamos **estación de mini-espadas** con parrilla, chef y servicio al cliente.
+            </p>
+            <ul class="mb-4">
+              <li>Menús por persona o por espada.</li>
+              <li>Opciones vegetarianas y guarniciones.</li>
+              <li>Servicio en León y alrededores.</li>
+            </ul>
+            <div class="d-flex flex-wrap gap-2">
+              <a class="btn btn-success fw-bold" href="https://wa.me/5215555555555?text=Hola%20PACHECO%209%2C%20quiero%20cotizar%20un%20evento" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+              <a class="btn btn-outline-success" href="mailto:contacto@pacheco9.mx">contacto@pacheco9.mx</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 d-flex">
+          <img class="hero-img align-self-center" src="assets/galeria-2.jpg" alt="Servicio para eventos" loading="lazy"
+               onerror="this.src='assets/hero-espadas.jpg'">
+        </div>
+      </div>
+    </div>
+  </section>
 
-            factorial(n) {
-                if (n < 0) return NaN;
-                if (n === 0 || n === 1) return 1;
-                let result = 1;
-                for (let i = 2; i <= n; i++) {
-                    result *= i;
-                }
-                return result;
-            }
+  <!-- UBICACIÓN -->
+  <section id="ubicacion" class="py-5">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-5">
+          <h2 class="section-title">Ubicación</h2>
+          <p class="mb-1"><strong>Espetinhos PACHECO 9</strong></p>
+          <p class="text-muted">León, Gto. · Horario: Mar-Dom 1:00–10:00 pm</p>
+          <ul class="list-unstyled">
+            <li>📞 <a class="link-dark" href="tel:+525555555555">+52 555 555 5555</a></li>
+            <li>📱 <a class="link-dark" href="https://wa.me/5215555555555" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li>📧 <a class="link-dark" href="mailto:contacto@pacheco9.mx">contacto@pacheco9.mx</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-7">
+          <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+            <iframe src="https://maps.google.com/maps?q=Le%C3%B3n%20Guanajuato&t=&z=13&ie=UTF8&iwloc=&output=embed"
+              style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            addConstant(constant) {
-                switch (constant) {
-                    case 'pi':
-                        this.currentOperand = Math.PI.toString();
-                        break;
-                    case 'e':
-                        this.currentOperand = Math.E.toString();
-                        break;
-                }
-                this.waitingForOperand = true;
-            }
+  <footer class="py-4">
+    <div class="container d-flex flex-column flex-lg-row align-items-center justify-content-between gap-2">
+      <div>© <span id="year"></span> PACHECO 9 · Mini-Espadas y algo más</div>
+      <div class="small">Brasil vibes · HTML · CSS · Bootstrap</div>
+    </div>
+  </footer>
 
-            updateDisplay() {
-                const currentOperandElement = document.getElementById('currentOperand');
-                const previousOperandElement = document.getElementById('previousOperand');
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Año
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-                currentOperandElement.textContent = this.currentOperand;
-
-                if (this.operation != null) {
-                    previousOperandElement.textContent = `${this.previousOperand} ${this.operation}`;
-                } else {
-                    previousOperandElement.textContent = '';
-                }
-            }
-        }
-
-        const calculator = new Calculator();
-
-        function inputNumber(number) {
-            calculator.appendNumber(number);
-            calculator.updateDisplay();
-        }
-
-        function inputOperator(operator) {
-            calculator.chooseOperation(operator);
-            calculator.updateDisplay();
-        }
-
-        function inputFunction(func) {
-            calculator.performFunction(func);
-            calculator.updateDisplay();
-        }
-
-        function inputConstant(constant) {
-            calculator.addConstant(constant);
-            calculator.updateDisplay();
-        }
-
-        function calculate() {
-            calculator.calculate();
-            calculator.updateDisplay();
-        }
-
-        function clearAll() {
-            calculator.clear();
-            calculator.updateDisplay();
-        }
-
-        function clearEntry() {
-            calculator.clearEntry();
-            calculator.updateDisplay();
-        }
-
-        function deleteLast() {
-            calculator.delete();
-            calculator.updateDisplay();
-        }
-
-        // Soporte para teclado
-        document.addEventListener('keydown', function(event) {
-            const key = event.key;
-            
-            if (key >= '0' && key <= '9' || key === '.') {
-                inputNumber(key);
-            } else if (key === '+' || key === '-' || key === '*' || key === '/') {
-                inputOperator(key);
-            } else if (key === 'Enter' || key === '=') {
-                calculate();
-            } else if (key === 'Escape' || key === 'c' || key === 'C') {
-                clearAll();
-            } else if (key === 'Backspace') {
-                deleteLast();
-            }
-        });
-    </script>
+    // Filtro de categorías del menú
+    const pills = document.querySelectorAll('.pill');
+    const items = document.querySelectorAll('#menuGrid .item');
+    pills.forEach(p=>{
+      p.addEventListener('click', ()=>{
+        pills.forEach(x=>x.classList.remove('active'));
+        p.classList.add('active');
+        const f = p.dataset.filter;
+        items.forEach(it=>{ it.style.display = (f==='all'||it.classList.contains(f))?'':'none'; });
+      });
+    });
+  </script>
 </body>
 </html>
